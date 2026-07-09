@@ -5,9 +5,10 @@ import { data } from 'react-router'
 
 const MyBids = () => {
   const { user } = use(AuthContext)
+  console.log("This is user",user.email)
   const [bids, setBids] = useState([])
 
-  console.log(bids)
+  console.log("My bids",bids)
 
   console.log('token', user.accessToken)
 
@@ -18,10 +19,9 @@ const MyBids = () => {
           authorization : `Bearer ${user.accessToken}`
         }
       })
-
         .then(res => res.json())
         .then(data => {
-          console.log(data)
+          console.log("After data save",data)
           setBids(data)
         })
     }
