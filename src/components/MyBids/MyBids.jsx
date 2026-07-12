@@ -5,29 +5,32 @@ import { data } from 'react-router'
 
 const MyBids = () => {
   const { user } = use(AuthContext)
-  console.log("This is user",user.email)
+  console.log("This is user", user.email)
   const [bids, setBids] = useState([])
 
-  console.log("My bids",bids)
+  console.log("My bids", bids)
 
   console.log('token', user.accessToken)
 
-    useEffect(() => {
+  useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:3000/bids?email=${user.email}`, {
-        headers : {
-          authorization : `Bearer ${localStorage.getItem('token')}`
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
         .then(res => res.json())
         .then(data => {
-          console.log("After data save",data)
+          console.log("After data save", data)
           setBids(data)
         })
+    } else{
+      localStorage.removeItem('token')
     }
+    
   }, [user?.email])
-  
-  
+
+
 
   // useEffect(() => {
   //   if (user?.email) {
@@ -72,8 +75,8 @@ const MyBids = () => {
                 icon: "success"
               })
 
-              const remainingBids = bids.filter(bid=> bid._id !== _id);
-              console.log('My Remaing Bids',remainingBids)
+              const remainingBids = bids.filter(bid => bid._id !== _id);
+              console.log('My Remaing Bids', remainingBids)
               setBids(remainingBids)
             }
 
